@@ -12,12 +12,12 @@ class App {
         boolean bookIsFind = false;
 
         for (var book : books) {
-            for (var value : findThis.values()) {
-                if (!book.containsValue(value)) {
+            bookIsFind = true;
+            for (var key : findThis.keySet()) {
+                String bookValue = book.getOrDefault(key, "");
+                if (!bookValue.equals(findThis.get(key))) {
                     bookIsFind = false;
-                    break;
                 }
-                bookIsFind = true;
             }
             if (bookIsFind) {
                 result.add(book);
