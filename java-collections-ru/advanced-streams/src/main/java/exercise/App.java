@@ -20,11 +20,10 @@ class App {
                 .map(str -> str.replace("environment=", ""))
                 .map(str -> str.replace("\"", ""))
                 .map(str -> str.split(","))
-                .map(str -> Arrays.stream(str)
-                        .filter(x -> x.startsWith("X_FORWARDED_"))
-                        .map(x -> x.replaceAll("X_FORWARDED_", ""))
-                        .collect(Collectors.joining(",")))
-                .collect(Collectors.joining(",")).replace(",,", ",");
+                .flatMap(x -> Arrays.stream(x))
+                .filter(x -> x.startsWith("X_FORWARDED_"))
+                .map(x -> x.replaceAll("X_FORWARDED_", ""))
+                .collect(Collectors.joining(","));
     }
 }
 //END
